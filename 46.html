@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="d"></div>
+    <script type="text/babel">
+         var students = [
+        {
+          firstname:"Praveen",
+          lastname:"Gubbala",
+          age:40
+        },
+        {
+          firstname:"Rohit",
+          lastname:"Sharma",
+          age:35
+        },
+        {
+          firstname:"Sachin",
+          lastname:"Tendulkar",
+          age:50
+        },
+    ]
+    var jsh1 = <div>
+                 <table border="2px">
+                    <thead>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Age</th>
+                    </thead>
+                    <tbody>
+                        {
+                            students.map((stu) => {
+                                return (
+                                    <tr>
+                                        <td>{stu.firstname}</td>
+                                        <td>{stu.lastname}</td>
+                                        <td>{stu.age}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                 </table>
+               </div>
+    ReactDOM.render(jsh1,document.getElementById("d"));           
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <form name="empForm" onsubmit="addorUpdateEmployee(event)">
+        <input type="text" name="firstname" placeholder="Enter the firstname" onkeyup="handleInput(event)">
+        <br>
+        <input type="text" name="lastname" placeholder="Enter the lastname" onkeyup="handleInput(event)">
+        <br>
+        <input type="text" name="age" placeholder="Enter the age" onkeyup="handleInput(event)">
+        <br>
+        <button type="submit">Add Employee</button>
+    </form>
+    <input type="radio">:All
+    <input type="radio">:Male
+    <input type="radio">:Female
+    <table border="2">
+        <thead>
+            <th onclick="sortBy('firstname')">Firstname</th>
+            <th onclick="sortBy('lastname')">Lastname</th>
+            <th onclick="sortBy('age')">Age</th>
+        </thead>
+        <tbody id="d">
+
+        </tbody>
+        <script type="text/babel">
+            var employees = [
+                {
+                    firstname: 'praveen',
+                    lastname: 'gubbala',
+                    age: 38,
+                    gender: 'male'
+                },
+                {
+                    firstname: 'srikanth',
+                    lastname: 'gubbala',
+                    age: 28,
+                    gender: 'male'
+                },
+                {
+                    firstname: 'kumari',
+                    lastname: 'asdasd',
+                    age: 30,
+                    gender: 'female'
+                },
+                {
+                    firstname: 'ramesh',
+                    lastname: 'reddy',
+                    age: 11,
+                    gender: 'male'
+                }
+            ]
+            genTable();
+            function sortBy(key) {
+                employees.sort(function (a, b) {
+                    if (a[key] > b[key]) {
+                        return 1
+                    }
+                    else {
+                        return -1
+                    }
+                })
+                genTable();
+            }
+
+            class Employee {
+                firstname;
+                lastname;
+                age;
+                constructor(fn, ln, age) {
+                    this.firstname = fn;
+                    this.lastname = ln;
+                    this.age = age;
+                }
+            }
+            var newEmployee = new Employee();
+            function handleInput(e) {
+                newEmployee[e.target.name] = e.target.value;
+            }
+
+            function addorUpdateEmployee(e) {
+                e.preventDefault();
+                if(editIndex !== null){
+                    employees[editIndex] = newEmployee;
+                    editIndex = null;
+                }
+                else{
+                    employees.push(newEmployee);
+                }
+                newEmployee = new Employee();
+                document.forms['empForm'].reset();
+                genTable();
+            }
+            function deleteEmp(i){
+                employees.splice(i,1);
+                genTable();
+            }
+            function editEmp(index){
+                newEmployee = {...employees[index]};
+                document.forms['empForm'].firstname.value = newEmployee.firstname;
+                document.forms['empForm'].lastname.value = newEmployee.lastname;
+                document.forms['empForm'].age.value = newEmployee.age;
+                editIndex = index;
+            }
+            function genTable() {
+                var trows = employees.map((emp, i) => {
+                    return (
+                        <tr key={i}>
+                            <td>{emp.firstname}</td>
+                            <td>{emp.lastname}</td>
+                            <td>{emp.age}</td>
+                            <td>
+                                <button onClick={()=>{deleteEmp(i)}}>Delete</button>
+                                <button onClick={()=>{editEmp(i)}}>Edit</button>
+                            </td>
+                        </tr>
+                    )
+                })
+                ReactDOM.render(trows, document.getElementById("d"));
+            }
+        </script>
+    </table>
+</body>
+
+</html>

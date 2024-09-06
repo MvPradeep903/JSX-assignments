@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="d"></div>
+    <script>
+         var scientists = [
+        "https://cdn.pixabay.com/photo/2016/12/27/06/38/albert-einstein-1933340_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2012/10/26/00/06/charles-robert-darwin-62911_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2019/01/16/20/26/isaac-newton-3936704_960_720.png"
+      ];
+      scientists.forEach(function(s){
+        var nimg = document.createElement("img");
+        nimg.src = s;
+        nimg.style.width="200px";
+        document.getElementById("d").appendChild(nimg);
+      })
+    </script>
+</body>
+</html>

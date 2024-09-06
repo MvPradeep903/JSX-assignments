@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="d" style="border: 1px solid red; padding: 10px;"></div>
+    <script type="text/babel">
+        function Todolist() {
+            var [todos, setTodos] = React.useState(['cooldrinks', 'bus fee', 'shoes', 'memory card', 'connector']);
+            function addTodo() {
+                var newtodo = document.getElementById("newTodo").value;
+                setTodos([...todos, newtodo]);
+            }
+            function deleteTodo(index){
+                var newtodos = [...todos]; 
+                newtodos.splice(index,1);
+                setTodos(newtodos);
+            }
+            return (
+                <div style={{ border: "1px solid", padding: "10px" }}>
+                    <h1>Todolist</h1>
+                    <input type="text" id="newTodo" />
+                    <button onClick={addTodo}>Add Task</button>
+                    <ul>
+                        {
+                            todos.map((todo,index) => {
+                                return <li key={index}>{todo} <button onClick={()=>{deleteTodo(index)}}>Delete</button></li>
+                            })
+                        }
+                    </ul>
+                </div>
+            )
+        }
+        ReactDOM.render(<Todolist />, document.getElementById("d"));
+    </script>
+</body>
+
+</html>
